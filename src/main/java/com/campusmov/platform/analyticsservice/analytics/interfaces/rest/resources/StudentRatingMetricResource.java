@@ -1,13 +1,13 @@
 package com.campusmov.platform.analyticsservice.analytics.interfaces.rest.resources;
 
-public record StudentRatingMetricResource(String userId, Integer totalRatings, Integer totalReviewsCount, Double averageRating) {
+public record StudentRatingMetricResource(String userId, Double totalRatings, Integer totalReviewsCount, Double averageRating) {
 
     public StudentRatingMetricResource {
         if (userId == null || userId.isBlank()) {
             throw new IllegalArgumentException("userId is required");
         }
-        if (totalRatings == null || totalRatings < 0) {
-            throw new IllegalArgumentException("totalRatings must be a non-negative integer");
+        if (totalRatings == null || totalRatings < 0.0) {
+            throw new IllegalArgumentException("totalRatings must be a non-negative number");
         }
         if (totalReviewsCount == null || totalReviewsCount < 0) {
             throw new IllegalArgumentException("totalReviewsCount must be a non-negative integer");

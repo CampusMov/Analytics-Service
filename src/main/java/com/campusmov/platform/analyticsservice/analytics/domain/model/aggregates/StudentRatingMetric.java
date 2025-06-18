@@ -4,6 +4,7 @@ import com.campusmov.platform.analyticsservice.analytics.domain.model.commands.C
 import com.campusmov.platform.analyticsservice.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +16,13 @@ public class StudentRatingMetric extends AuditableAbstractAggregateRoot<StudentR
     @NotBlank
     private String userId;
 
-    @NotBlank
+    @NotNull
     private Double totalRatings;
 
-    @NotBlank
+    @NotNull
     private Integer totalReviewsCount;
 
-    @NotBlank
+    @NotNull
     private Double averageRating;
 
     public StudentRatingMetric() {
@@ -38,7 +39,9 @@ public class StudentRatingMetric extends AuditableAbstractAggregateRoot<StudentR
         if (reputationScore == null || reputationScore < 0) {
             throw new IllegalArgumentException("Reputation score must be a non-negative number");
         }
-        this.totalRatings += reputationScore;
+        if(this.totalReviewsCount == 1) this.totalRatings = reputationScore;
+        else this.totalRatings += reputationScore;
+
         this.totalReviewsCount++;
         this.averageRating = this.totalRatings / this.totalReviewsCount;
     }
