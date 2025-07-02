@@ -39,7 +39,7 @@ public class StudentRatingMetric extends AuditableAbstractAggregateRoot<StudentR
         if (reputationScore == null || reputationScore < 0) {
             throw new IllegalArgumentException("Reputation score must be a non-negative number");
         }
-        if(this.totalReviewsCount == 1) this.totalRatings = reputationScore;
+        if(this.totalReviewsCount == 0) this.totalRatings = reputationScore;
         else this.totalRatings += reputationScore;
 
         this.totalReviewsCount++;
