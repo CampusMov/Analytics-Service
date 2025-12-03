@@ -28,6 +28,7 @@ public class StudentRatingMetric extends AuditableAbstractAggregateRoot<StudentR
     public StudentRatingMetric() {
     }
 
+    
     public StudentRatingMetric(CreateStudentRatingMetricsCommand command) {
         this.userId = command.userId();
         this.totalRatings = 5.0;
@@ -35,6 +36,7 @@ public class StudentRatingMetric extends AuditableAbstractAggregateRoot<StudentR
         this.averageRating = 5.0;
     }
 
+    
     public void updateMetrics(Double reputationScore){
         if (reputationScore == null || reputationScore < 0) {
             throw new IllegalArgumentException("Reputation score must be a non-negative number");
@@ -46,4 +48,6 @@ public class StudentRatingMetric extends AuditableAbstractAggregateRoot<StudentR
         this.averageRating = this.totalRatings / this.totalReviewsCount;
     }
 
+
+    
 }
